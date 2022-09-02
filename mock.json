@@ -1,0 +1,67 @@
+{
+  "uuid": "53b622ee-bb5b-463e-a87d-e938d40f0030",
+  "lastMigration": 22,
+  "name": "List case",
+  "endpointPrefix": "api/v1/",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "543e2328-ae69-43de-b9ba-b10ef7499bc2",
+      "documentation": "Get list with autodynamics pagination and filter",
+      "method": "get",
+      "endpoint": "tickets",
+      "responses": [
+        {
+          "uuid": "c5dce24f-a1c4-46ad-b3f9-bc12b7d65df7",
+          "body": "{\n  {{setVar 'input_per_page' (queryParam 'per_page' '25')}}\n  {{setVar 'input_page' (queryParam 'current_page' '1')}}\n  {{setVar 'total_rows' (queryParam 'total_rows' '52')}}\n  {{setVar 'data_to_show' (subtract total_rows (multiply (subtract input_page 1) input_per_page))}}\n  {{#if (gt data_to_show per_page)}} {{ setVar 'data_to_show' per_page }} {{/if}}\n  \n  \"data\" : [\n    {{# repeat data_to_show }}\n      {\n        \"id\": \"{{objectId}}\",\n        \"name\": \"{{ faker 'name.findName' (queryParam 'name' '')}}\",\n        \"age\" : \"{{ faker 'datatype.number' min=17 max=70}}\",\n        \"priority\" : \"{{queryParam 'priority' (oneOf (array 'low' 'medium' 'high'))}}\",\n        \"date\" : \"{{date (dateTimeShift date=(queryParam 'start_date' '2022-01-01') format=YYYY-MM-dd) (dateTimeShift date=(queryParam 'end_date' '2022-12-30') format=YYYY-MM-dd) 'YYYY-MM-dd'}}\"\n      }\n     {{/ repeat }}\n  ],\n  \"meta\" : {\n    \"current_page\": {{input_page}},\n    \"per_page\": {{input_per_page}},\n    \"total\":{{total_rows}},\n    \"last_page\": {{ceil (divide total_rows input_per_page)}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Get list tickets",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
