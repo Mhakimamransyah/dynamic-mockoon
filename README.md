@@ -1,7 +1,7 @@
 # Dynamic-mockoon
 Dynamic mock GET method api response for list data.
 
-### Default configurations
+### Default environtment configurations
 - port : 3001
 - prefix : api/v1/
 
