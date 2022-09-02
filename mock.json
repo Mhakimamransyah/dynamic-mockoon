@@ -1,7 +1,7 @@
 {
   "uuid": "53b622ee-bb5b-463e-a87d-e938d40f0030",
   "lastMigration": 22,
-  "name": "List case",
+  "name": "Mock",
   "endpointPrefix": "api/v1/",
   "latency": 0,
   "port": 3001,
